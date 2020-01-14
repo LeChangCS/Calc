@@ -30,6 +30,11 @@ steps:
     pathToSources: '$(System.DefaultWorkingDirectory)/**/**/src/main/java/'
     reportDirectory: '$(System.DefaultWorkingDirectory)/**/**/site/cobertura'
 
+- task: PublishTestResults@2
+  inputs:
+    testResultsFormat: 'JUnit'
+    testResultsFiles: '**/TEST-*.xml'
+    testRunTitle: 'calculaotr test runs'
 
 - task: ArchiveFiles@2
   inputs:
@@ -39,7 +44,7 @@ steps:
     archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
     replaceExistingArchive: true
     verbose: true
-    
+
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
@@ -51,3 +56,4 @@ steps:
     targetPath: '$(Pipeline.Workspace)'
     artifact: 'myArtifact'
     publishLocation: 'pipeline'
+
